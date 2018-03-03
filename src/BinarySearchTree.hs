@@ -36,9 +36,9 @@ isLeaf (Node _ Nil Nil) = True
 isLeaf _ = False
 
 -- | Count all nodes in @BSTree@
--- TODO: implement counting all nodes of the tree
 size :: BSTree a -> Integer
-size _ = undefined
+size Nil = 0
+size (Node _ l r) = 1 + (size l) + (size r)
 
 -- | Height of @BSTree@ (height of @Nil@ is 0)
 height :: BSTree a -> Integer
