@@ -31,9 +31,9 @@ isValid :: Ord a => BSTree a -> Bool
 isValid _ = undefined
 
 -- | Check whether is @BSTree@ is leaf
--- TODO: implement leaf check
 isLeaf :: Ord a => BSTree a -> Bool
-isLeaf _ = undefined
+isLeaf (Node _ Nil Nil) = True
+isLeaf _ = False
 
 -- | Count all nodes in @BSTree@
 -- TODO: implement counting all nodes of the tree
