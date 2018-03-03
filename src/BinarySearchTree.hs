@@ -41,14 +41,14 @@ size :: BSTree a -> Integer
 size _ = undefined
 
 -- | Height of @BSTree@ (height of @Nil@ is 0)
--- TODO: implement finding out height of the tree
 height :: BSTree a -> Integer
-height _ = undefined
+height Nil = 0
+height (Node _ l r) = 1 + max (height l) (height r)
 
 -- | Minimal height in the @BSTree@ (height of @Nil@ is 0)
--- TODO: implement finding out minimal depth of the tree
 minHeight :: BSTree a -> Integer
-minHeight _ = undefined
+minHeight Nil = 0
+minHeight (Node _ l r) = 1 + min (height l) (height r)
 
 -- | Check if given element is in the @BSTree@
 -- TODO: implement finding out if element is in the tree
@@ -74,5 +74,9 @@ toList _ = undefined
 -- TODO: implement conversion from list to tree, use median (hint: sort)
 fromList :: Ord a => [a] -> BSTree a
 fromList _ = undefined
+
+----
+-- Helpers
+----
 
 
