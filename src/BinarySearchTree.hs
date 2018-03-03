@@ -51,9 +51,12 @@ minHeight Nil = 0
 minHeight (Node _ l r) = 1 + min (height l) (height r)
 
 -- | Check if given element is in the @BSTree@
--- TODO: implement finding out if element is in the tree
 contains :: Ord a => BSTree a -> a -> Bool
-contains _ _ = undefined
+contains Nil _ = False
+contains (Node x l r) y
+    | x > y = contains l y
+    | x < y = contains r y
+    | otherwise = x == y
 
 -- | Create new tree with given element inserted
 insert :: Ord a => BSTree a -> a -> BSTree a
