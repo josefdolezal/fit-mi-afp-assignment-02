@@ -26,9 +26,9 @@ right Nil = Nil
 right (Node _ _ r) = r
 
 -- | Check whether is @BSTree@ valid (i.e., does not violate any rule)
--- TODO: implement validity check
 isValid :: Ord a => BSTree a -> Bool
-isValid _ = undefined
+isValid = isSorted . toList
+    where isSorted xs = and $ zipWith (<=) xs (tail xs)
 
 -- | Check whether is @BSTree@ is leaf
 isLeaf :: Ord a => BSTree a -> Bool
