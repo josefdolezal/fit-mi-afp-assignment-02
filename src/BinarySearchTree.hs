@@ -56,9 +56,12 @@ contains :: Ord a => BSTree a -> a -> Bool
 contains _ _ = undefined
 
 -- | Create new tree with given element inserted
--- TODO: implement insertion to the tree
 insert :: Ord a => BSTree a -> a -> BSTree a
-insert _ _ = undefined
+insert Nil x = Node x Nil Nil
+insert (Node x l r) y
+    | x > y = Node x (insert l y) r
+    | x < y = Node x l (insert r y)
+    | otherwise = Node x l r
 
 -- | Create new tree with given element deleted (min element in the right subtree strategy)
 -- TODO: implement deletion from the tree
