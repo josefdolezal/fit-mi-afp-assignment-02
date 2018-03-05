@@ -90,8 +90,10 @@ toList Nil = []
 toList (Node a l r) = (toList l) ++ [a] ++ (toList r)
 
 -- | Build new @BSTree@ from arbitrary list with use of median (left if even)
--- TODO: implement conversion from list to tree, use median (hint: sort)
 fromList :: Ord a => [a] -> BSTree a
+fromList [] = Nil
+fromList xs = makeNode $ half $ Data.List.sort $ unique xs
+    where makeNode (l, r) = Node (last l) (fromList $ init l) (fromList r)
 
 -- | Splits the given list into two (almost) equal sub-lists
 half :: [a] -> ([a], [a])
