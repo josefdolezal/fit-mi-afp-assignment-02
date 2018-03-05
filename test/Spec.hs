@@ -194,6 +194,16 @@ spec = do
       (intTreeH `delete` 10) `shouldBe` intTreeHd10
       (intTreeI `delete` 10) `shouldBe` intTreeId10
 
+  describe "minValue" $ do
+    it "finds minimal value of trivial tree" $ do
+      (minValue intTreeA) `shouldBe` 5
+      (minValue intTreeB) `shouldBe` 15
+    it "finds minimal value of composed tree" $ do
+      (minValue intTreeC) `shouldBe` 5
+      (minValue intTreeD) `shouldBe` 10
+      (minValue intTreeE) `shouldBe` 5
+
+
   describe "toList" $ do
     it "converts trivial tree to list" $ do
       toList (Nil :: BSTree Double) `shouldBe` ([] :: [Double])
