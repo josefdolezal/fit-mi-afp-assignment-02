@@ -1,4 +1,5 @@
 import Test.Hspec
+import qualified Data.List
 
 import BinarySearchTree
 
@@ -252,3 +253,14 @@ spec = do
       Data.List.sort (unique [1, 1, 2, 2]) `shouldBe` [1, 2]
     it "does not affect list without duplicities" $ do
       Data.List.sort (unique [1, 2, 3]) `shouldBe` [1, 2, 3]
+
+  describe "half" $ do
+    it "splits empty list" $ do
+      half ([] :: [Int]) `shouldBe` ([] :: [Int], [] :: [Int])
+    it "splits lists with odd items count" $ do
+      half [1, 2] `shouldBe` ([1], [2])
+      half [1, 2, 3, 4] `shouldBe` ([1, 2], [3, 4])
+    it "splits lists with even items count" $ do
+      half [1] `shouldBe` ([1], [] :: [Int])
+      half [1, 2, 3] `shouldBe` ([1, 2], [3])
+      half [1, 2, 3, 4, 5] `shouldBe` ([1, 2, 3], [4, 5])

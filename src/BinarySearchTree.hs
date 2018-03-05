@@ -93,6 +93,11 @@ toList (Node a l r) = (toList l) ++ [a] ++ (toList r)
 -- TODO: implement conversion from list to tree, use median (hint: sort)
 fromList :: Ord a => [a] -> BSTree a
 
+-- | Splits the given list into two (almost) equal sub-lists
+half :: [a] -> ([a], [a])
+half xs = Data.List.splitAt index xs
+    where index = (length xs + 1) `div` 2
+
 -- | Removes duplicites from list in `O(n log n)`
 unique :: Ord a => [a] -> [a]
 unique = Data.Set.toList . Data.Set.fromList
