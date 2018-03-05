@@ -1,6 +1,7 @@
 module BinarySearchTree where
 
 import qualified Data.List
+import qualified Data.Set
 -- You might want to use some externals. Better use qualified import
 -- so there won't be any clash
 -- for example instead of "sort" (from Data.List) use "Data.List.sort"
@@ -91,4 +92,7 @@ toList (Node a l r) = (toList l) ++ [a] ++ (toList r)
 -- | Build new @BSTree@ from arbitrary list with use of median (left if even)
 -- TODO: implement conversion from list to tree, use median (hint: sort)
 fromList :: Ord a => [a] -> BSTree a
-fromList = undefined
+
+-- | Removes duplicites from list in `O(n log n)`
+unique :: Ord a => [a] -> [a]
+unique = Data.Set.toList . Data.Set.fromList

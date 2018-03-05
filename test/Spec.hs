@@ -242,3 +242,13 @@ spec = do
     it "converts list to balanced tree (complex, even)" $ do
       fromList [9, 0, 11, 15, 6, 8] `shouldBe` Node 8 (Node 0 Nil (mkLeaf 6)) (Node 11 (mkLeaf 9) (mkLeaf 15))
       fromList [2, 1, 4, 5, 3, 9, 15, 6] `shouldBe` Node 4 (Node 2 (mkLeaf 1) (mkLeaf 3)) (Node 6 (mkLeaf 5) (Node 9 Nil (mkLeaf 15)))
+      fromList [2, 1, 4, 5, 3, 9, 15, 6] `shouldBe` Node 4 (Node 2 (mkLeaf 1) (mkLeaf 3)) (Node 6 (mkLeaf 5) (Node 9 Nil (mkLeaf 15)))
+
+  describe "unique" $ do
+    it "works with empty list" $ do
+      unique ([] :: [Double]) `shouldBe` ([] :: [Double])
+    it "removes duplicities" $ do
+      Data.List.sort (unique [1, 2, 1]) `shouldBe` [1, 2]
+      Data.List.sort (unique [1, 1, 2, 2]) `shouldBe` [1, 2]
+    it "does not affect list without duplicities" $ do
+      Data.List.sort (unique [1, 2, 3]) `shouldBe` [1, 2, 3]
