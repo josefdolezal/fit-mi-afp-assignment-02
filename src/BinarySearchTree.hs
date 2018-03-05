@@ -67,9 +67,21 @@ insert (Node x l r) y
     | otherwise = Node x l r
 
 -- | Create new tree with given element deleted (min element in the right subtree strategy)
--- TODO: implement deletion from the tree
 delete :: Ord a => BSTree a -> a -> BSTree a
-delete _ _ = undefined
+delete Nil _ = Nil
+delete (Node x l r) y
+    | x > y = Node x (delete l y) r
+    | x < y = Node x l (delete r y)
+    | l == Nil = r
+    | r == Nil = l
+    | otherwise = Node newRoot l (delete r newRoot)
+    where newRoot = minValue r
+
+-- | Finds minimal value in given tree. Fails for empty tree.
+minValue :: Ord a => BSTree a -> a
+minValue (Node a Nil _) = a
+minValue (Node _ l _) = minValue l
+minValue _ = error "Nil does not have a value"
 
 -- | Convert @BSTree@ to list (will be in ascending order if tree is valid)
 toList :: BSTree a -> [a]
@@ -79,10 +91,4 @@ toList (Node a l r) = (toList l) ++ [a] ++ (toList r)
 -- | Build new @BSTree@ from arbitrary list with use of median (left if even)
 -- TODO: implement conversion from list to tree, use median (hint: sort)
 fromList :: Ord a => [a] -> BSTree a
-fromList _ = undefined
-
-----
--- Helpers
-----
-
-
+fromList = undefined
