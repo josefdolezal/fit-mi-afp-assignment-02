@@ -1,4 +1,5 @@
 import Test.Hspec
+import qualified Data.List
 
 import BinarySearchTree
 
@@ -194,6 +195,16 @@ spec = do
       (intTreeH `delete` 10) `shouldBe` intTreeHd10
       (intTreeI `delete` 10) `shouldBe` intTreeId10
 
+  describe "minValue" $ do
+    it "finds minimal value of trivial tree" $ do
+      (minValue intTreeA) `shouldBe` 5
+      (minValue intTreeB) `shouldBe` 15
+    it "finds minimal value of composed tree" $ do
+      (minValue intTreeC) `shouldBe` 5
+      (minValue intTreeD) `shouldBe` 10
+      (minValue intTreeE) `shouldBe` 5
+
+
   describe "toList" $ do
     it "converts trivial tree to list" $ do
       toList (Nil :: BSTree Double) `shouldBe` ([] :: [Double])
@@ -232,3 +243,23 @@ spec = do
     it "converts list to balanced tree (complex, even)" $ do
       fromList [9, 0, 11, 15, 6, 8] `shouldBe` Node 8 (Node 0 Nil (mkLeaf 6)) (Node 11 (mkLeaf 9) (mkLeaf 15))
       fromList [2, 1, 4, 5, 3, 9, 15, 6] `shouldBe` Node 4 (Node 2 (mkLeaf 1) (mkLeaf 3)) (Node 6 (mkLeaf 5) (Node 9 Nil (mkLeaf 15)))
+
+  describe "unique" $ do
+    it "works with empty list" $ do
+      unique ([] :: [Double]) `shouldBe` ([] :: [Double])
+    it "removes duplicities" $ do
+      Data.List.sort (unique [1, 2, 1]) `shouldBe` [1, 2]
+      Data.List.sort (unique [1, 1, 2, 2]) `shouldBe` [1, 2]
+    it "does not affect list without duplicities" $ do
+      Data.List.sort (unique [1, 2, 3]) `shouldBe` [1, 2, 3]
+
+  describe "half" $ do
+    it "splits empty list" $ do
+      half ([] :: [Int]) `shouldBe` ([] :: [Int], [] :: [Int])
+    it "splits lists with odd items count" $ do
+      half [1, 2] `shouldBe` ([1], [2])
+      half [1, 2, 3, 4] `shouldBe` ([1, 2], [3, 4])
+    it "splits lists with even items count" $ do
+      half [1] `shouldBe` ([1], [] :: [Int])
+      half [1, 2, 3] `shouldBe` ([1, 2], [3])
+      half [1, 2, 3, 4, 5] `shouldBe` ([1, 2, 3], [4, 5])
